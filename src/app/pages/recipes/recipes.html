@@ -1,0 +1,30 @@
+<h2>Search Recipes</h2>
+
+<input
+  type="text"
+  [(ngModel)]="searchQuery"
+  placeholder="Search for a meal"
+/>
+<button (click)="fetchRecipes()">Search</button>
+
+@if (meals.length > 0) {
+  <ul>
+    @for (meal of meals; track meal.idMeal) {
+      <li>
+        <h3>{{ meal.strMeal }}</h3>
+
+        @if (meal.strSource) {
+          <a [href]="meal.strSource" target="_blank">
+            <img [src]="meal.strMealThumb" width="200" style="cursor: pointer;" />
+          </a>
+        } @else {
+          <img [src]="meal.strMealThumb" width="200" />
+        }
+
+        <p>{{ meal.strArea }} | {{ meal.strCategory }}</p>
+      </li>
+    }
+  </ul>
+} @else if (searchQuery) {
+  <p>No results found.</p>
+}

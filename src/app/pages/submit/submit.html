@@ -1,0 +1,42 @@
+<h2>Submit Your Recipe</h2>
+
+@if (errorMessage) {
+  <div class="form-error">{{ errorMessage }}</div>
+}
+
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  <label>
+    Name:
+    <input type="text" formControlName="name" />
+  </label>
+  @if (recipeForm.get('name')?.invalid && recipeForm.get('name')?.touched) {
+    <div class="error">Name is required.</div>
+  }
+
+  <label>
+    Ingredients:
+    <textarea formControlName="ingredients"></textarea>
+  </label>
+  @if (recipeForm.get('ingredients')?.invalid && recipeForm.get('ingredients')?.touched) {
+    <div class="error">Ingredients are required.</div>
+  }
+
+  <label>
+    Instructions:
+    <textarea formControlName="instructions"></textarea>
+  </label>
+  @if (recipeForm.get('instructions')?.invalid && recipeForm.get('instructions')?.touched) {
+    <div class="error">Instructions are required.</div>
+  }
+
+  <label>
+    Upload Image:
+    <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+  </label>
+
+  @if (imagePreview) {
+    <img [src]="imagePreview" alt="Preview" class="preview" />
+  }
+
+  <button type="submit">Submit</button>
+</form>
